@@ -1,0 +1,11 @@
+jax
+optax==0.0.6
+transformers~=4.4.2
+smart_open[gcs]
+dm-haiku
+einops~=0.3.0
+ray
+fastapi
+uvicorn
+streamlit~=0.84.0
+curtsies

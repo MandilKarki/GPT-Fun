@@ -1,0 +1,28 @@
+version: "3.3"
+services:
+    gptjapi:
+        image: ghcr.io/linuxserver/swag
+        container_name: gptapi
+        cap_add:
+            - NET_ADMIN
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Asia/Kathmandu
+            - URL=${DOMAIN}
+            - SUBDOMAINS=${SUBDOMAIN},
+            - VALIDATION=http
+            - STAGING=${DRYRUN}
+            - ONLY_SUBDOMAINS=true
+        volumes:
+            - ${NGINX_PATH}:/config/nginx/proxy-confs/app.subdomain.conf
+            - ${CERTS_PATH}:/config/etc/letsencrypt/
+            - ${DNS_KEYS}:/config/keys/
+        ports:
+            - 443:443
+            - 80:8080
+        restart: unless-stopped
+        networks:
+            - production
+networks:
+    production:
